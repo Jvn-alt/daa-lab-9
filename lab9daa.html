@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>DAA LAB 9</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    textarea {
+      width: 100%;
+      height: 400px;
+      font-family: monospace;
+      font-size: 14px;
+      margin-bottom: 10px;
+    }
+    button {
+      padding: 8px 16px;
+      margin-bottom: 40px;
+      cursor: pointer;
+    }
+  </style>
+  <script>
+    function copyCode(id) {
+      const textarea = document.getElementById(id);
+      textarea.select();
+      document.execCommand("copy");
+      alert("Code copied!");
+    }
+  </script>
+</head>
+<body>
+
+<h1>Lab 9 ( DAA )</h1>
+
+<textarea id="pycode">
+import time
+import math
+
+def bruteForce(coeff, n, x):
+    sum = 0.0
+    for i in range(0, n + 1):
+        sum = sum + coeff[i] * math.pow(x, i)
+    return sum
+
+def hornersRule(coeff, n, x):
+    result = coeff[n]
+    for i in range(n - 1, -1, -1):
+        result = result * x + coeff[i]
+    return result
+
+n = int(input("Enter the degree of the polynomial: "))
+
+coeff = [0] * (n + 1)
+print("Enter the coefficients from highest to lowest degree:")
+for i in range(n, -1, -1):
+    coeff[i] = int(input())
+
+x = float(input("Enter the value of x: "))
+
+start = time.time()
+brute_force_result = bruteForce(coeff, n, x)
+end = time.time()
+time_used = end - start
+print(f"Brute force result: {brute_force_result}; Time used: {time_used} seconds")
+
+start = time.time()
+horners_rule_result = hornersRule(coeff, n, x)
+end = time.time()
+time_used = end - start
+print(f"Horner's rule result: {horners_rule_result}; Time used: {time_used} seconds")
+</textarea>
+
+<button onclick="copyCode('pycode')">Copy Python Code</button>
+
+</body>
+</html>
