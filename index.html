@@ -72,6 +72,56 @@ print(f"Horner's rule result: {horners_rule_result}; Time used: {time_used} seco
 </textarea>
 
 <button onclick="copyCode('pycode')">Copy Python Code</button>
+<h1>10 ( DAA )</h1>
 
+<textarea id="pycode">
+import sys
+
+def minKey(key, mstSet, n):
+    min_value = sys.maxsize
+    for v in range(n):
+        if mstSet[v] == False and key[v] < min_value:
+            min_value = key[v]
+            min_index = v
+    return min_index
+
+def printMST(parent, c, n):
+    total_weight = 0
+    print("Edge \tWeight")
+    for i in range(1, n):
+        print(str(parent[i]) + " - " + str(i) + " \t" + str(c[i][parent[i]]))
+        total_weight += c[i][parent[i]]
+    return total_weight
+
+def primMST(c, n):
+    parent = [None] * n
+    key = [sys.maxsize] * n
+    mstSet = [False] * n
+
+    key[0] = 0
+    parent[0] = -1
+
+    for count in range(n):
+        u = minKey(key, mstSet, n)
+        mstSet[u] = True
+
+        for v in range(n):
+            if c[u][v] > 0 and mstSet[v] == False and c[u][v] < key[v]:
+                key[v] = c[u][v]
+                parent[v] = u
+
+    total_weight = printMST(parent, c, n)
+    print("Total cost of the minimum spanning tree: " + str(total_weight))
+
+# Driver code
+n = int(input("Enter no. of vertices: "))
+c = []
+
+print("Enter the cost adjacency matrix:")
+for i in range(n):
+    c.append(list(map(int, input().split())))
+
+primMST(c, n)
+</textarea>
 </body>
 </html>
